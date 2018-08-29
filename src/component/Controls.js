@@ -4,6 +4,20 @@ import PlayButton from './PlayButton';
 import SoundButton from './SoundButton';
 
 class Controls extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentTime: this.props.currentTime,
+    };
+  }
+
+  UNSAFE_componentWillReceiveProps (nextProps) {
+    const { currentTime } = this.props;
+    if(currentTime !== nextProps.currentTime){
+      this.setState({ currentTime: nextProps.currentTime });
+    }
+ }
+
   getDisplayTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time - minutes * 60);
@@ -21,6 +35,7 @@ class Controls extends Component {
   computeSeekTime = (e) => {
     const { duration, onMouseup } = this.props;
     const seekTime = duration * ((e.clientX - 198) / this.scrubberBar.scrub.clientWidth);
+    this.setState({ currentTime: seekTime });
     onMouseup(seekTime);
   }
 
@@ -33,7 +48,6 @@ class Controls extends Component {
 
   render() {
     const { 
-      currentTime, 
       duration, 
       onMouseup, 
       getPlayStatus, 
@@ -45,6 +59,10 @@ class Controls extends Component {
       onNubMouseDown, 
       onNubMouseUp,
     } = this.props;
+
+    const { 
+      currentTime, 
+    } = this.state;
     return (
       <div
         ref={(el) => { this.hitbox = el }}
