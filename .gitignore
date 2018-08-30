@@ -63,5 +63,3 @@ typings/
 # mac-os
 .DS_Store
 
-# Firebase
-.firebase/
