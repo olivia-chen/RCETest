@@ -69,6 +69,9 @@ class Playlist extends Component {
       items,
       currentPlayingIndex,
       inAd,
+      getMinGreaterIndex,
+      getMaxLessIndex,
+      currentTime,
     } = this.props;
     const {
       playlistOpen,
@@ -89,7 +92,7 @@ class Playlist extends Component {
           }}
         />
         <div className={'sidebar'}>
-          <p className={'playlist-title'}>Playlist</p>
+          <p className={'playlist-title'}>PLAYLIST</p>
             {items && items.map((item, index) => {
               if (item.title && item.type !== "TEASER" && item.type !== "MAINTITLE") {
                 return (
@@ -97,9 +100,13 @@ class Playlist extends Component {
                     ref={(el) => { this.playItem = el }}
                     key={index}
                     index={index}
-                    currentPlaying={currentPlayingIndex === index || this.props.getMaxLessIndex(items, currentPlayingIndex) === index}
+                    preIndex={getMaxLessIndex(items, currentPlayingIndex)}
+                    nextIndex={getMinGreaterIndex(items, currentPlayingIndex)}
+                    currentPlaying={currentPlayingIndex === index || getMaxLessIndex(items, currentPlayingIndex) === index}
                     item={item}
                     getSeekTimeIndex={this.handleStartTimeIndex}
+                    items={items}
+                    currentTime={currentTime}
                   />
                 )
               }

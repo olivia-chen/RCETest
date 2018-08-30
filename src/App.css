@@ -191,6 +191,10 @@ h2.title.show {
   height: 20px;
 }
 
+.scrubber.hide {
+  display: none;
+}
+
 .scrub {
   width: 100%;
   height: 100%;
@@ -298,6 +302,10 @@ h2.title.show {
   opacity: 0.8;
 }
 
+.btn-wrap svg #icon-volume-off {
+  margin-right: 100px;
+}
+
 .timer {
   height: 20px;
   width: 42px;
@@ -354,7 +362,7 @@ h2.title.show {
 }
 
 .playlist-title {
-  color: white;
+  color: orange;
   font-size: 20px;
   padding: 15px 20px;
   margin: 0;
@@ -405,6 +413,19 @@ h2.title.show {
   color: white;
   position: relative;
 }
+
+.story-wrapper .scrubber {
+  margin-left: 20px;
+}
+
+.story-wrapper .scrub-full {
+  height: 2px;
+}
+
+.story-wrapper .scrub-complete {
+  height: 2px;
+}
+
 .story.selected .marker {
   width: 4px;
   position: absolute;

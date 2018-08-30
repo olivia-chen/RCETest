@@ -12,6 +12,7 @@ class App extends Component {
       seekTime: undefined,
       inAd: false,
       isPlaying: true,
+      currentTime: 0,
     }
     this.showCursorTimeOut = null;
     this.handleJsonContent = this.handleJsonContent.bind(this);
@@ -25,6 +26,7 @@ class App extends Component {
     this.handleGlobalMouseOut = this.handleGlobalMouseOut.bind(this);
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handleMouseClick = this.handleMouseClick.bind(this);
+    this.getCurrentTime = this.getCurrentTime.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +38,10 @@ class App extends Component {
       items: content.items,
       duration: content.duration,
     });
+  }
+
+  getCurrentTime(currentTime) {
+    this.setState({currentTime});
   }
 
   handleCurrentIndex(currentIndex) {
@@ -101,12 +107,7 @@ class App extends Component {
 
   // find the max index number less than current index
   getMaxLessIndex = (items, curr) => {
-    const filteredIndex = [];
-    items.forEach((item, index) => {
-      if (item.title && item.type !== "TEASER" && item.type !== "MAINTITLE") {
-        filteredIndex.push(index);
-      }
-    });
+    const filteredIndex = this.getFilteredIndex(items);
     let res = -1;
     filteredIndex.forEach((item, index) => {
       if (item <= curr) {
@@ -114,6 +115,25 @@ class App extends Component {
       }
     });
     return res;
+  }
+
+  // find the min index number greater than current index
+  getMinGreaterIndex = (items, curr) => {
+    const filteredIndex = this.getFilteredIndex(items);
+    const res = filteredIndex.find((element) => {
+      return element > curr;
+    });
+    return res ? res : -1;
+  }
+
+  getFilteredIndex = (items) => {
+    const filteredIndex = [];
+    items.forEach((item, index) => {
+      if (item.title && item.type !== "TEASER" && item.type !== "MAINTITLE") {
+        filteredIndex.push(index);
+      }
+    });
+    return filteredIndex;
   }
 
   render() {
@@ -125,6 +145,7 @@ class App extends Component {
       duration,
       items,
       isPlaying,
+      currentTime,
     } = this.state;
     return (
       <div 
@@ -150,6 +171,8 @@ class App extends Component {
           getMaxLessIndex={this.getMaxLessIndex}
           isPlaying={isPlaying}
           getPlayStatus={this.handleTogglePlay}
+          getCurrentTime={this.getCurrentTime}
+          currentTime={currentTime}
         />
         <Playlist
           items={items}
@@ -158,6 +181,8 @@ class App extends Component {
           duration={duration}
           inAd={inAd}
           getMaxLessIndex={this.getMaxLessIndex}
+          getMinGreaterIndex={this.getMinGreaterIndex}
+          currentTime={currentTime}
         />
       </div>
     )

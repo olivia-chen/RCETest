@@ -57,35 +57,74 @@ class PlayItem extends Component {
     return ret;
   }
 
+  computePosition = (preIndex, nextIndex, items, currentTime) => {
+    nextIndex = Math.max(preIndex, nextIndex);
+    if (preIndex >= 0 && items && currentTime) {
+      const startTime = items && items[preIndex].startTime;
+      const endTime = items && items[nextIndex].startTime-0.01;
+      let duration = 0;
+      if (preIndex === nextIndex) {
+        duration = items[preIndex].duration;
+      } else {
+        duration = endTime - startTime;
+      }
+      const scrubWidth = this.scrub && this.scrub.clientWidth
+      return scrubWidth * ((currentTime-startTime) / (duration));
+    }
+    return 0;
+  }
+
   render() {
     const {
       currentPlaying,
+      items,
+      preIndex,
+      nextIndex,
+      currentTime,
     } = this.props;
     return (
-      <div 
-        className={`story ${currentPlaying ? 'selected' : ''}`}
-        onClick={this.computeStartItem}
+      <div
+        className='story-wrapper'
       >
-        <div className={'overflower'}>
-          <div className={'marker'} />
-        </div>
-        <div className={'v-wrap'}>
-          <img src={this.getImageUri()} alt={this.getTitle()}/>
-          <div className={'txt-center'}>
-            <p className={'meta duration'}>
-              {this.getCategory()}
-            </p>
-            <p>
-              <a className={'no-pointer'}>{this.getTitle()}</a>
-            </p>
-            <span className="meta">
-              <strong className={'duration'}>
-                {this.getDuration()}
-              </strong>
-            </span>
+        <div 
+          className={`story ${currentPlaying ? 'selected' : ''}`}
+          onClick={this.computeStartItem}
+        >
+          <div className={'overflower'}>
+            <div className={'marker'} />
+          </div>
+          <div className={'v-wrap'}>
+            <img src={this.getImageUri()} alt={this.getTitle()}/>
+            <div className={'txt-center'}>
+              <p className={'meta duration'}>
+                {this.getCategory()}
+              </p>
+              <p>
+                <a className={'no-pointer'}>{this.getTitle()}</a>
+              </p>
+              <span className="meta">
+                <strong className={'duration'}>
+                  {this.getDuration()}
+                </strong>
+              </span>
+            </div>
+            
+          </div>
+        </div> 
+        <div className={`scrubber ${currentPlaying ? '' : 'hide'}`}>
+          <div 
+            ref={(el) => {this.scrub = el}}
+            className={'scrub'}
+          >
+            <div className={'scrub-full'}>
+              <div
+                className={'scrub-complete'}
+                style={{left: this.computePosition(preIndex, nextIndex, items, currentTime)}}
+              />
+            </div> 
           </div>
         </div>
-      </div> 
+      </div>
     )
   }
 }

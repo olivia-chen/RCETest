@@ -10,8 +10,12 @@ class ScrubberBar extends Component {
     return undefined;
   }
 
+  handleNubClick = (e) => {
+    e.stopPropagation();
+  }
+
   render() {
-    const { duration, currentTime, onMouseDown, onScrubberBarClick, mousePosition, currentThumbnailUrl, nubGrabbing } = this.props;
+    const { duration, currentTime, onMouseDown, onScrubberBarClick, mousePosition, currentThumbnailUrl, nubGrabbing, inAd } = this.props;
     return (
       <div className={'scrubber'}>
         <div 
@@ -41,8 +45,9 @@ class ScrubberBar extends Component {
             }
         </div>
         <div
-          className={`nub ${nubGrabbing?'grabbing':''}`}
+          className={`${inAd ? 'ad' : ''} nub ${nubGrabbing ? 'grabbing' : ''}`}
           onMouseDown={onMouseDown}
+          onClick={(e) => {this.handleNubClick(e)}}
           style={{left: this.computePosition(duration, currentTime)}}
         />
       </div>

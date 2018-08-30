@@ -10,10 +10,8 @@ class RTPlayer extends Component {
       title: "",
       items: [],
       showTitle: false,
-      currentTime: 0,
       duration: 0,
       seekTime: undefined,
-      // isPlaying: true,
       muted: true,
       nubGrabbing: false,
     }
@@ -24,7 +22,6 @@ class RTPlayer extends Component {
     this.handleMouseup = this.handleMouseup.bind(this);
     this.handleNubMouseUp = this.handleNubMouseUp.bind(this);
     this.handleOnSeeking = this.handleOnSeeking.bind(this);
-    // this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handleToggleSound = this.handleToggleSound.bind(this);
     this.handleNubMouseDown = this.handleNubMouseDown.bind(this);
     this.getThumbnailOnMouseMove = this.getThumbnailOnMouseMove.bind(this);
@@ -48,11 +45,10 @@ class RTPlayer extends Component {
   }
 
   handleOnTimeUpdate(currentTime) {
-    this.setState({ currentTime });
+    this.props.getCurrentTime(currentTime);
     this.getTitle(currentTime);
     if (currentTime > this.state.duration) {
       this.props.getPlayStatus(false);
-      // this.setState({ isPlaying: false });
     }
   }
 
@@ -85,10 +81,6 @@ class RTPlayer extends Component {
   handleOnSeeking() {
     this.setState({ seekTime: undefined });
   }
-
-  // handleTogglePlay(isPlaying) {
-  //   this.setState({ isPlaying }); 
-  // }
 
   handleToggleSound(muted) {
     this.setState({ muted }); 
@@ -125,16 +117,14 @@ class RTPlayer extends Component {
   render() {
     const {
       seekTime,
-      // isPlaying,
       muted,
-      currentTime,
       duration,
       nubGrabbing,
       showTitle,
       title,
       items,
     } = this.state;
-    const { inAd, isPlaying, getPlayStatus } = this.props;
+    const { inAd, isPlaying, getPlayStatus, currentTime } = this.props;
     return (
       <div>
         <div className={`video-bg ${showTitle ? 'dimmed' : ''}`}>
