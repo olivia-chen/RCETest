@@ -134,8 +134,13 @@ class App extends Component {
         onMouseMove={this.handleGlobalMouseMove}
         onClick={this.handleMouseClick}
       >
-        <div className={`pause-sign ${isPlaying ? '' : 'show'}`}>
-          Paused
+        <div 
+          className={`pause-sign ${isPlaying ? '' : 'show'}`}
+          title={isPlaying ? '' : 'play'}
+        >
+          <svg>
+            <use xlinkHref={'#icon-play'}/>
+          </svg>
         </div>
         <RTPlayer 
           getJsonContent={this.handleJsonContent}

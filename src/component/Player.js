@@ -9,7 +9,7 @@ class Player extends Component {
   UNSAFE_componentWillReceiveProps (nextProps) {
     const { isPlaying } = this.props;
     if(nextProps.isPlaying !== isPlaying){
-      nextProps.isPlaying ? this.pause() : this.play();
+      nextProps.isPlaying ? this.play() : this.pause();
     }
  }
  
@@ -55,7 +55,7 @@ class Player extends Component {
   };
 
   play = () => {
-      this.hlsVideo.pause();
+      this.hlsVideo.play();
       // const playPromise = this.hlsVideo.play();
       // if (playPromise !== undefined) {
       //   playPromise.then( () => {
@@ -72,7 +72,7 @@ class Player extends Component {
   }
 
   pause = () => {
-    this.hlsVideo.play();
+    this.hlsVideo.pause();
   }
 
   setSeekTime(time) {

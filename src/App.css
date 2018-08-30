@@ -53,15 +53,25 @@ body, * {
 }
 
 .pause-sign {
+  
   display: none;
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  height: 100px;
-  width: 100px;
-  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -70%);
+  height: 144px;
+  width: 144px;
+  background: rgba(255, 255, 255, 0.2);
   z-index: 999;
+  border-radius: 100%;
+}
+
+.pause-sign svg {
+  fill: #d8d8d8;
+  margin-left: 10px;
+  margin-top: 2px;
+  height: 144px;
+  width: 144px;
 }
 
 .pause-sign.show {
@@ -480,12 +490,13 @@ h2.title.show {
 .txt-center {
   position: absolute;
   top: 50%;
-  width: calc(100% - 200px);
+  width: calc(100% - 220px);
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
   left: 180px;
 }
+
 .selected .txt-center {
   width: calc(100% - 270px);
 }
@@ -526,6 +537,7 @@ h2.title.show {
   .story img,
   .overflower img {
     width: 132px;
+    padding-left: 0;
   }
   .selected .txt-center {
     width: 102px;
