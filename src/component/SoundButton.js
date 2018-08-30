@@ -15,7 +15,8 @@ class SoundButton extends Component {
     }
  }
 
-  handleTogglePLay = () => {
+  handleTogglePLay = (e) => {
+    e.stopPropagation();
     const { getMuteStatus } = this.props;
     const curr = !this.state.muted;
     getMuteStatus(curr);

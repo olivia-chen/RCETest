@@ -15,7 +15,8 @@ class PlayButton extends Component {
     }
  }
 
-  handleTogglePLay = () => {
+  handleTogglePLay = (e) => {
+    e.stopPropagation();
     const { getPlayStatus } = this.props;
     const curr = !this.state.isPlaying;
     getPlayStatus(curr);

@@ -34,6 +34,7 @@ class Controls extends Component {
   }
 
   computeSeekTime = (e) => {
+    e.stopPropagation();
     const { duration, onMouseup } = this.props;
     let seekTime = duration * ((e.clientX - 198) / this.scrubberBar.scrub.clientWidth);
     seekTime = Math.min(duration, seekTime);

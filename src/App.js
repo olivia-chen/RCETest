@@ -11,6 +11,7 @@ class App extends Component {
       currentIndex: 0,
       seekTime: undefined,
       inAd: false,
+      isPlaying: true,
     }
     this.showCursorTimeOut = null;
     this.handleJsonContent = this.handleJsonContent.bind(this);
@@ -18,10 +19,17 @@ class App extends Component {
     this.handleSeekTime = this.handleSeekTime.bind(this);
     this.handleGlobalMouseMove = this.handleGlobalMouseMove.bind(this);
     this.hideCursor = this.hideCursor.bind(this);
+    this.togglePlay = this.togglePlay.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
     this.handleGlobalMouseOver = this.handleGlobalMouseOver.bind(this);
     this.handleGlobalMouseOut = this.handleGlobalMouseOut.bind(this);
+    this.handleTogglePlay = this.handleTogglePlay.bind(this);
+    this.handleMouseClick = this.handleMouseClick.bind(this);
   }
 
+  componentDidMount() {
+    document.addEventListener('keyup', this.handleKeyUp);
+  }
 
   handleJsonContent(content) {
     this.setState({ 
@@ -46,6 +54,10 @@ class App extends Component {
     this.setState({seekTime});
   }
 
+  handleTogglePlay(isPlaying) {
+    this.setState({ isPlaying }); 
+  }
+
   handleGlobalMouseOver() {
     this.setState({
       controlOpen: true,
@@ -56,6 +68,21 @@ class App extends Component {
     this.setState({
       controlOpen: false,
     })
+  }
+
+  togglePlay() {
+    const curr = this.state.isPlaying;
+    this.handleTogglePlay(!curr);
+  }
+
+  handleMouseClick() {
+    this.togglePlay();
+  }
+
+  handleKeyUp(e) {
+    if (e.keyCode === 32 || e.which === 32) {
+      this.togglePlay();
+    }
   }
 
   hideCursor() {
@@ -97,6 +124,7 @@ class App extends Component {
       controlOpen,
       duration,
       items,
+      isPlaying,
     } = this.state;
     return (
       <div 
@@ -104,13 +132,19 @@ class App extends Component {
         onMouseOver={this.handleGlobalMouseOver}
         onMouseOut={this.handleGlobalMouseOut}
         onMouseMove={this.handleGlobalMouseMove}
+        onClick={this.handleMouseClick}
       >
+        <div className={`pause-sign ${isPlaying ? '' : 'show'}`}>
+          Paused
+        </div>
         <RTPlayer 
           getJsonContent={this.handleJsonContent}
           getCurrentIndex={this.handleCurrentIndex}
           seekTime={seekTime}
           inAd={inAd}
           getMaxLessIndex={this.getMaxLessIndex}
+          isPlaying={isPlaying}
+          getPlayStatus={this.handleTogglePlay}
         />
         <Playlist
           items={items}

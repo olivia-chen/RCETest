@@ -35,7 +35,7 @@ class ScrubberBar extends Component {
               >
                 <img
                   src={currentThumbnailUrl}
-                  alt={'thumbnail image'}
+                  alt={'thumbnail'}
                 />
               </div>
             }

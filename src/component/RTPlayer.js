@@ -13,7 +13,7 @@ class RTPlayer extends Component {
       currentTime: 0,
       duration: 0,
       seekTime: undefined,
-      isPlaying: true,
+      // isPlaying: true,
       muted: true,
       nubGrabbing: false,
     }
@@ -24,7 +24,7 @@ class RTPlayer extends Component {
     this.handleMouseup = this.handleMouseup.bind(this);
     this.handleNubMouseUp = this.handleNubMouseUp.bind(this);
     this.handleOnSeeking = this.handleOnSeeking.bind(this);
-    this.handleTogglePlay = this.handleTogglePlay.bind(this);
+    // this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handleToggleSound = this.handleToggleSound.bind(this);
     this.handleNubMouseDown = this.handleNubMouseDown.bind(this);
     this.getThumbnailOnMouseMove = this.getThumbnailOnMouseMove.bind(this);
@@ -32,10 +32,11 @@ class RTPlayer extends Component {
   }
 
   UNSAFE_componentWillReceiveProps (nextProps) {
-    const { seekTime } = this.props;
+    const { seekTime, isPlaying } = this.props;
     if(nextProps.seekTime !== seekTime){
       this.handleMouseup(nextProps.seekTime);
-      this.setState({ isPlaying: true});
+      this.props.getPlayStatus(true);
+      // this.setState({ isPlaying: true});
     }
  }
 
@@ -51,7 +52,8 @@ class RTPlayer extends Component {
     this.setState({ currentTime });
     this.getTitle(currentTime);
     if (currentTime > this.state.duration) {
-      this.setState({ isPlaying: false });
+      this.props.getPlayStatus(false);
+      // this.setState({ isPlaying: false });
     }
   }
 
@@ -85,9 +87,9 @@ class RTPlayer extends Component {
     this.setState({ seekTime: undefined });
   }
 
-  handleTogglePlay(isPlaying) {
-    this.setState({ isPlaying }); 
-  }
+  // handleTogglePlay(isPlaying) {
+  //   this.setState({ isPlaying }); 
+  // }
 
   handleToggleSound(muted) {
     this.setState({ muted }); 
@@ -124,7 +126,7 @@ class RTPlayer extends Component {
   render() {
     const {
       seekTime,
-      isPlaying,
+      // isPlaying,
       muted,
       currentTime,
       duration,
@@ -133,7 +135,7 @@ class RTPlayer extends Component {
       title,
       items,
     } = this.state;
-    const { inAd } = this.props;
+    const { inAd, isPlaying, getPlayStatus } = this.props;
     return (
       <div>
         <div className={`video-bg ${showTitle ? 'dimmed' : ''}`}>
@@ -158,7 +160,7 @@ class RTPlayer extends Component {
           currentTime={currentTime}
           duration={duration}
           onMouseup={this.handleMouseup}
-          getPlayStatus={this.handleTogglePlay}
+          getPlayStatus={getPlayStatus}
           getMuteStatus={this.handleToggleSound}
           isPlaying={isPlaying}
           inAd={inAd}
