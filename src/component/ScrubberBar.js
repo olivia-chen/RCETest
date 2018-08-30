@@ -11,7 +11,7 @@ class ScrubberBar extends Component {
   }
 
   render() {
-    const { duration, currentTime, onMouseDown, onScrubberBarClick } = this.props;
+    const { duration, currentTime, onMouseDown, onScrubberBarClick, mousePosition, currentThumbnailUrl, nubGrabbing } = this.props;
     return (
       <div className={'scrubber'}>
         <div 
@@ -24,10 +24,24 @@ class ScrubberBar extends Component {
               className={'scrub-complete'}
               style={{left: this.computePosition(duration, currentTime)}}
             />
-          </div>
+          </div> 
+            {
+              !nubGrabbing && 
+              <div
+                className={'thumbnail'}
+                style={{
+                  left: mousePosition,
+                }}
+              >
+                <img
+                  src={currentThumbnailUrl}
+                  alt={'thumbnail image'}
+                />
+              </div>
+            }
         </div>
         <div
-          className={'nub'}
+          className={`nub ${nubGrabbing?'grabbing':''}`}
           onMouseDown={onMouseDown}
           style={{left: this.computePosition(duration, currentTime)}}
         />

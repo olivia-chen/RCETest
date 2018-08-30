@@ -29,12 +29,15 @@ class Controls extends Component {
     }
     ret += "" + minutes + ":" + (seconds < 10 ? "0" : "");
     ret += "" + seconds;
+    
     return ret;
   }
 
   computeSeekTime = (e) => {
     const { duration, onMouseup } = this.props;
-    const seekTime = duration * ((e.clientX - 198) / this.scrubberBar.scrub.clientWidth);
+    let seekTime = duration * ((e.clientX - 198) / this.scrubberBar.scrub.clientWidth);
+    seekTime = Math.min(duration, seekTime);
+    seekTime = Math.max(0, seekTime);
     this.setState({ currentTime: seekTime });
     onMouseup(seekTime);
   }
@@ -43,6 +46,13 @@ class Controls extends Component {
     const { nubGrabbing } = this.props;
     if (nubGrabbing === true) {
       this.computeSeekTime(e)
+    } else {
+      const url = this.props.getThumbnailOnMouseMove(e.clientX - 198, this.scrubberBar.scrub.clientWidth);
+
+      this.setState({
+        mousePosition: e.clientX - 198,
+        currentThumbnailUrl: url,
+      });
     }
   }
 
@@ -58,10 +68,13 @@ class Controls extends Component {
       inAd, 
       onNubMouseDown, 
       onNubMouseUp,
+      nubGrabbing,
     } = this.props;
 
     const { 
-      currentTime, 
+      currentTime,
+      mousePosition,
+      currentThumbnailUrl,
     } = this.state;
     return (
       <div
@@ -91,6 +104,9 @@ class Controls extends Component {
             onMouseup={onMouseup}
             onMouseDown={onNubMouseDown}
             onScrubberBarClick={e => this.computeSeekTime(e)}
+            mousePosition={mousePosition}
+            currentThumbnailUrl={currentThumbnailUrl}
+            nubGrabbing={nubGrabbing}
           />
           <div className={'runtime'}>
             <span>{this.getDisplayTime(duration)}</span>

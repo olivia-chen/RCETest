@@ -31,11 +31,11 @@ class PlayButton extends Component {
         <div
           className={'clicker'}
           onClick={this.handleTogglePLay}
+          title={isPlaying ? 'play' : 'pause'}
         />
         <svg
           width={'36px'}
           height={'36px'}
-          fill={'white'}
         >
           <use xlinkHref={isPlaying ? '#icon-pause' : '#icon-play'}/>
         </svg>

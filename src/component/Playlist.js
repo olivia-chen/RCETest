@@ -26,6 +26,44 @@ class Playlist extends Component {
     })
   }
 
+  computeHeight = (items) => {
+    const len = this.getPlayItemsLen(items);
+    return len === 0 ? 0 : this.hitzone && (this.hitzone.clientHeight / len); 
+  }
+
+  computeTop = (items, currentIndex) => {
+    const index = this.getPlayItemsIndex(items, currentIndex);
+    const len = this.getPlayItemsLen(items);
+    const top = len !== 0 && this.hitzone && ((this.hitzone.clientHeight / len) * (index));
+    return top;
+  }
+
+  getPlayItemsLen = (items) => {
+    const filteredItems = this.getPlayItems(items);
+    const len = filteredItems && filteredItems.length;
+    return len || 0;
+  }
+
+  getPlayItems = (items) => {
+    const filteredItems = items && items.filter((item) => item.title && item.type !== "TEASER" && item.type !== "MAINTITLE");
+    return filteredItems;
+  }
+
+  getPlayItemsIndex = (items, currentIndex) => {
+    // console.log(currentIndex);
+    let indexMap = [];
+    indexMap[0] = 0;
+    let count = 0;
+    items && items.map((item, index) => {
+      if (item.title && item.type !== "TEASER" && item.type !== "MAINTITLE" && index > 0) {
+        count = count + 1;
+      }
+      indexMap[index] = count;
+      return indexMap;
+    });
+    return indexMap[currentIndex];
+  }
+
   render() {
     const {
       items,
@@ -35,22 +73,31 @@ class Playlist extends Component {
     const {
       playlistOpen,
     } = this.state;
+    
     return (
       <div 
+        ref={(el) => { this.hitzone = el }}
         className={`${inAd ? 'ad' : ''} hitzone ${playlistOpen ? 'playlist-open' : ''}`}
         onMouseEnter={e => this.handleMouseEnter(e)}
         onMouseLeave={e => this.handleMouseLeave(e)}
       >
-        <div className={'side-progress'} />
+        <div 
+          className={'side-progress'} 
+          style={{
+            height: this.computeHeight(items),
+            top: this.computeTop(items, currentPlayingIndex),
+          }}
+        />
         <div className={'sidebar'}>
           <p className={'playlist-title'}>Playlist</p>
             {items && items.map((item, index) => {
               if (item.title && item.type !== "TEASER" && item.type !== "MAINTITLE") {
                 return (
                   <PlayItem 
+                    ref={(el) => { this.playItem = el }}
                     key={index}
                     index={index}
-                    currentPlaying={currentPlayingIndex === index}
+                    currentPlaying={currentPlayingIndex === index || this.props.getMaxLessIndex(items, currentPlayingIndex) === index}
                     item={item}
                     getSeekTimeIndex={this.handleStartTimeIndex}
                   />

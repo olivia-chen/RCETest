@@ -31,11 +31,11 @@ class SoundButton extends Component {
         <div
           className={'clicker'}
           onClick={this.handleTogglePLay}
+          title={muted ? 'muted' : 'unmute'}
         />
         <svg
           width={'36px'}
           height={'36px'}
-          fill={'white'}
         >
           <use xlinkHref={muted ? '#icon-volume-off' : '#icon-volume-up'}/>
         </svg>

@@ -27,6 +27,7 @@ class RTPlayer extends Component {
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handleToggleSound = this.handleToggleSound.bind(this);
     this.handleNubMouseDown = this.handleNubMouseDown.bind(this);
+    this.getThumbnailOnMouseMove = this.getThumbnailOnMouseMove.bind(this);
     this.getTitle = this.getTitle.bind(this);
   }
 
@@ -56,8 +57,8 @@ class RTPlayer extends Component {
 
   getTitle(currentTime) {
     // here assume the items has been sorted by startTime
-    const items = this.state.items;
-    const currentIndex = items.findIndex(item => (item.startTime + item.duration) > currentTime);
+    const { items } = this.state;
+    const currentIndex = items && items.findIndex(item => (item.startTime + item.duration) > (currentTime+0.001));
     if (currentIndex >= 0) {
       const currentSegment = items[currentIndex];
       this.setState({ title: currentSegment.title });
@@ -100,6 +101,26 @@ class RTPlayer extends Component {
     this.setState({ nubGrabbing: false });
   }
 
+  getThumbnailOnMouseMove(currentPosition, width) {
+    const { 
+      items,
+      duration,
+    } = this.state
+    let seekTime = duration * (currentPosition / width);
+    seekTime = Math.min(duration, seekTime);
+    seekTime = Math.max(0, seekTime);
+    const currentIndex = items && items.findIndex(item => (item.startTime + item.duration) > seekTime);
+    const preIndex = this.props.getMaxLessIndex(items, currentIndex);
+    const item = items[preIndex];
+    if (item && item.resources) {
+      const resource = item.resources.find(el => el.orientation && el.orientation === "LANDSCAPE");
+      if (resource) {
+        return resource.uri;
+      }
+    }
+    return ""; 
+  }
+
   render() {
     const {
       seekTime,
@@ -110,6 +131,7 @@ class RTPlayer extends Component {
       nubGrabbing,
       showTitle,
       title,
+      items,
     } = this.state;
     const { inAd } = this.props;
     return (
@@ -143,6 +165,9 @@ class RTPlayer extends Component {
           onNubMouseDown={this.handleNubMouseDown}
           onNubMouseUp={this.handleNubMouseUp}
           nubGrabbing={nubGrabbing}
+          items={items}
+          getMaxLessIndex={this.getMaxLessIndex}
+          getThumbnailOnMouseMove={this.getThumbnailOnMouseMove}
         />
       </div>
     )

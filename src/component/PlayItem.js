@@ -39,7 +39,6 @@ class PlayItem extends Component {
 
   computeStartItem = (e) => {
     const { index, getSeekTimeIndex } = this.props;
-    console.log(e, index);
     getSeekTimeIndex(index);
   }
 
@@ -72,6 +71,9 @@ class PlayItem extends Component {
         <div className={'v-wrap'}>
           <img src={this.getImageUri()} alt={this.getTitle()}/>
           <div className={'txt-center'}>
+            <p className={'meta duration'}>
+              {this.getCategory()}
+            </p>
             <p>
               <a className={'no-pointer'}>{this.getTitle()}</a>
             </p>
@@ -79,7 +81,6 @@ class PlayItem extends Component {
               <strong className={'duration'}>
                 {this.getDuration()}
               </strong>
-              {this.getCategory()} 
             </span>
           </div>
         </div>

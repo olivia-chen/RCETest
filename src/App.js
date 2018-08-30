@@ -12,9 +12,12 @@ class App extends Component {
       seekTime: undefined,
       inAd: false,
     }
+    this.showCursorTimeOut = null;
     this.handleJsonContent = this.handleJsonContent.bind(this);
     this.handleCurrentIndex = this.handleCurrentIndex.bind(this);
     this.handleSeekTime = this.handleSeekTime.bind(this);
+    this.handleGlobalMouseMove = this.handleGlobalMouseMove.bind(this);
+    this.hideCursor = this.hideCursor.bind(this);
     this.handleGlobalMouseOver = this.handleGlobalMouseOver.bind(this);
     this.handleGlobalMouseOut = this.handleGlobalMouseOut.bind(this);
   }
@@ -55,30 +58,67 @@ class App extends Component {
     })
   }
 
+  hideCursor() {
+    document.body.style.cursor = 'none';
+    this.setState({ controlOpen: false });
+  }
+
+  handleGlobalMouseMove() {
+    document.body.style.cursor = 'default';
+    this.setState({ controlOpen: true });
+    if (this.showCursorTimeOut) {
+      clearTimeout(this.showCursorTimeOut);
+    }
+    this.showCursorTimeOut = setTimeout(this.hideCursor, 3000);
+  }
+
+  // find the max index number less than current index
+  getMaxLessIndex = (items, curr) => {
+    const filteredIndex = [];
+    items.forEach((item, index) => {
+      if (item.title && item.type !== "TEASER" && item.type !== "MAINTITLE") {
+        filteredIndex.push(index);
+      }
+    });
+    let res = -1;
+    filteredIndex.forEach((item, index) => {
+      if (item <= curr) {
+        res = item;
+      }
+    });
+    return res;
+  }
+
   render() {
     const {
       currentIndex,
       seekTime,
       inAd,
       controlOpen,
+      duration,
+      items,
     } = this.state;
     return (
       <div 
         className={`player-wrapper ${controlOpen ? 'control-open' : ''}`}
         onMouseOver={this.handleGlobalMouseOver}
         onMouseOut={this.handleGlobalMouseOut}
+        onMouseMove={this.handleGlobalMouseMove}
       >
         <RTPlayer 
           getJsonContent={this.handleJsonContent}
           getCurrentIndex={this.handleCurrentIndex}
           seekTime={seekTime}
           inAd={inAd}
+          getMaxLessIndex={this.getMaxLessIndex}
         />
         <Playlist
-          items={this.state.items}
+          items={items}
           seekTime={this.handleSeekTime}
           currentPlayingIndex={currentIndex}
+          duration={duration}
           inAd={inAd}
+          getMaxLessIndex={this.getMaxLessIndex}
         />
       </div>
     )
