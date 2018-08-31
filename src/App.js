@@ -13,20 +13,26 @@ class App extends Component {
       inAd: false,
       isPlaying: true,
       currentTime: 0,
+      controlOpen: false,
+      showTitle: false,
+      manualUnmuted: false, 
     }
     this.showCursorTimeOut = null;
-    this.handleJsonContent = this.handleJsonContent.bind(this);
-    this.handleCurrentIndex = this.handleCurrentIndex.bind(this);
-    this.handleSeekTime = this.handleSeekTime.bind(this);
-    this.handleGlobalMouseMove = this.handleGlobalMouseMove.bind(this);
     this.hideCursor = this.hideCursor.bind(this);
     this.togglePlay = this.togglePlay.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
-    this.handleGlobalMouseOver = this.handleGlobalMouseOver.bind(this);
-    this.handleGlobalMouseOut = this.handleGlobalMouseOut.bind(this);
+    this.handleManualUnmute = this.handleManualUnmute.bind(this);
+    this.handleSeekTime = this.handleSeekTime.bind(this);
+    this.getCurrentTime = this.getCurrentTime.bind(this);
+    this.handleMouseout = this.handleMouseout.bind(this);
+    this.handleMouseenter = this.handleMouseenter.bind(this);
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handleMouseClick = this.handleMouseClick.bind(this);
-    this.getCurrentTime = this.getCurrentTime.bind(this);
+    this.handleJsonContent = this.handleJsonContent.bind(this);
+    this.handleCurrentIndex = this.handleCurrentIndex.bind(this);
+    this.handleGlobalMouseMove = this.handleGlobalMouseMove.bind(this);
+    this.handleGlobalMouseOver = this.handleGlobalMouseOver.bind(this);
+    this.handleGlobalMouseOut = this.handleGlobalMouseOut.bind(this);
   }
 
   componentDidMount() {
@@ -76,12 +82,21 @@ class App extends Component {
     })
   }
 
+  handleMouseenter() {
+    this.setState({ showTitle: true });
+  }
+
+  handleMouseout() {
+    this.setState({ showTitle: false });
+  }
+
   togglePlay() {
     const curr = this.state.isPlaying;
     this.handleTogglePlay(!curr);
   }
 
   handleMouseClick() {
+    this.setState({ showTitle: this.state.isPlaying });
     this.togglePlay();
   }
 
@@ -103,6 +118,12 @@ class App extends Component {
       clearTimeout(this.showCursorTimeOut);
     }
     this.showCursorTimeOut = setTimeout(this.hideCursor, 3000);
+  }
+
+  handleManualUnmute(muted) {
+    if(!muted) {
+      this.setState({ manualUnmuted: true });
+    }
   }
 
   // find the max index number less than current index
@@ -146,6 +167,8 @@ class App extends Component {
       items,
       isPlaying,
       currentTime,
+      showTitle,
+      manualUnmuted,
     } = this.state;
     return (
       <div 
@@ -163,6 +186,16 @@ class App extends Component {
             <use xlinkHref={'#icon-play'}/>
           </svg>
         </div>
+        <div 
+          className={`unmute-sign ${manualUnmuted ? '' : 'show'}`}
+        >
+          <svg>
+            <use xlinkHref={'#icon-volume-up'}/>
+          </svg>
+          <p>
+            {'Click mute button to unmute'}
+          </p>       
+        </div>
         <RTPlayer 
           getJsonContent={this.handleJsonContent}
           getCurrentIndex={this.handleCurrentIndex}
@@ -173,6 +206,10 @@ class App extends Component {
           getPlayStatus={this.handleTogglePlay}
           getCurrentTime={this.getCurrentTime}
           currentTime={currentTime}
+          showTitle={showTitle}
+          mouseenter={this.handleMouseenter}
+          mouseout={this.handleMouseout}
+          getMuteStatus={this.handleManualUnmute}
         />
         <Playlist
           items={items}

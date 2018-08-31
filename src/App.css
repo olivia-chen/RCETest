@@ -53,7 +53,6 @@ body, * {
 }
 
 .pause-sign {
-  
   display: none;
   position: fixed;
   top: 50%;
@@ -61,22 +60,55 @@ body, * {
   transform: translate(-50%, -70%);
   height: 144px;
   width: 144px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(133, 128, 128, 0.3);
   z-index: 999;
   border-radius: 100%;
 }
 
 .pause-sign svg {
-  fill: #d8d8d8;
+  fill: white;
   margin-left: 10px;
   margin-top: 2px;
   height: 144px;
   width: 144px;
+  opacity: 0.3;
 }
 
 .pause-sign.show {
   display: block;
 }
+
+.unmute-sign {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -900%);
+  height: 60px;
+  width: 300px;
+  background: rgba(7, 4, 4, 0.61);
+  z-index: 999;
+}
+
+.unmute-sign svg {
+  fill: #d1c8c8;
+  margin-left: 20px;
+  margin-top: 10px;
+  height: 40px;
+  width: 40px;
+}
+
+.unmute-sign p {
+  color: #d1c8c8;
+  padding-left: 20px;
+  margin-bottom: 20px;
+  transform: translate(20%,-250%);
+}
+
+.unmute-sign.show {
+  display: block;
+}
+
 .video-fitter {
   width: 100%;
   height: 100vh;
@@ -106,10 +138,19 @@ video::cue{
   background: rgba(0, 0, 0, 0.4);
 }
 
+.logo-img {
+  position: fixed;
+  width: 90px;
+  height: 80px;
+  opacity: 0.8;
+  top: 20px;
+  left: 15px;
+}
+
 h2.title {
   position: fixed;
   top: 24px;
-  left: 30px;
+  left: 100px;
   color: white;
   font-size: 20px;
   font-weight: 400;
@@ -298,7 +339,7 @@ h2.title.show {
   pointer-events: none;
   position: relative;
   z-index: 3;
-  fill: #d8d8d8;
+  fill: #fffbfb;
   opacity: 0.8;
 }
 

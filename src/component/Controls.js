@@ -44,6 +44,8 @@ class Controls extends Component {
       seekTime = Math.max(0, seekTime);
       this.setState({ currentTime: seekTime });
       onMouseup(seekTime);
+    }else{
+      document.body.style.cursor = 'default';
     }
   }
 
@@ -64,7 +66,7 @@ class Controls extends Component {
       duration, 
       onMouseup, 
       getPlayStatus, 
-      mouseover, 
+      mouseenter, 
       mouseout, 
       getMuteStatus, 
       isPlaying, 
@@ -83,7 +85,7 @@ class Controls extends Component {
       <div
         ref={(el) => { this.hitbox = el }}
         className={'control-hitbox'} // for ad playing, forbid displaying control bar
-        onMouseOver={mouseover}
+        onMouseEnter={mouseenter}
         onMouseOut={mouseout}
         onMouseMove={this.handleMouseMove}
         onMouseUp={onNubMouseUp}
@@ -115,15 +117,6 @@ class Controls extends Component {
           <div className={'runtime'}>
             <span>{this.getDisplayTime(duration)}</span>
           </div>
-        { 
-          // <btn-play />
-          // <btn-sound />
-          // <timer />
-          // <ScrubberBar />
-          // <runtime />
-          // <btn-cc>
-          // <btn-share>
-        }
         </div>
       </div>
     )

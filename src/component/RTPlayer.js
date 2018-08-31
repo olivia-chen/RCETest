@@ -9,7 +9,6 @@ class RTPlayer extends Component {
     this.state = {
       title: "",
       items: [],
-      showTitle: false,
       duration: 0,
       seekTime: undefined,
       muted: true,
@@ -17,8 +16,6 @@ class RTPlayer extends Component {
     }
     this.handleOnTimeUpdate = this.handleOnTimeUpdate.bind(this);
     this.handleJsonContent = this.handleJsonContent.bind(this);
-    this.handleMouseover = this.handleMouseover.bind(this);
-    this.handleMouseout = this.handleMouseout.bind(this);
     this.handleMouseup = this.handleMouseup.bind(this);
     this.handleNubMouseUp = this.handleNubMouseUp.bind(this);
     this.handleOnSeeking = this.handleOnSeeking.bind(this);
@@ -35,14 +32,6 @@ class RTPlayer extends Component {
       this.props.getPlayStatus(true);
     }
  }
-
-  handleMouseover() {
-    this.setState({ showTitle: true });
-  }
-
-  handleMouseout() {
-    this.setState({ showTitle: false });
-  }
 
   handleOnTimeUpdate(currentTime) {
     this.props.getCurrentTime(currentTime);
@@ -84,6 +73,7 @@ class RTPlayer extends Component {
 
   handleToggleSound(muted) {
     this.setState({ muted }); 
+    this.props.getMuteStatus(muted);
   }
 
   handleNubMouseDown() {
@@ -120,11 +110,10 @@ class RTPlayer extends Component {
       muted,
       duration,
       nubGrabbing,
-      showTitle,
       title,
       items,
     } = this.state;
-    const { inAd, isPlaying, getPlayStatus, currentTime } = this.props;
+    const { inAd, isPlaying, getPlayStatus, currentTime, showTitle, mouseout, mouseenter } = this.props;
     return (
       <div>
         <div className={`video-bg ${showTitle ? 'dimmed' : ''}`}>
@@ -144,8 +133,8 @@ class RTPlayer extends Component {
           />
         </div>
         <Controls
-          mouseover={this.handleMouseover}
-          mouseout={this.handleMouseout}
+          mouseenter={mouseenter}
+          mouseout={mouseout}
           currentTime={currentTime}
           duration={duration}
           onMouseup={this.handleMouseup}
