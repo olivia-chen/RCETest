@@ -35,8 +35,9 @@ class SoundButton extends Component {
           title={muted ? 'muted' : 'unmute'}
         />
         <svg
-          width={'36px'}
-          height={'36px'}
+          
+          width={'30px'}
+          height={'30px'}
         >
           <use xlinkHref={muted ? '#icon-volume-off' : '#icon-volume-up'}/>
         </svg>

@@ -28,15 +28,15 @@ class CCButton extends Component {
       isHideCCing
     } = this.state;
     return (
-      <div className={'btn-wrap'}>
+      <div className={'btn-wrap cc-button'}>
         <div
           className={'clicker'}
           onClick={this.handleToggleCC}
           title={isHideCCing ? 'Closed Caption off' : 'Closed Caption on'}
         />
         <svg
-          width={'36px'}
-          height={'36px'}
+          width={'28px'}
+          height={'28px'}
         >
           <use xlinkHref={isHideCCing ? '#icon-closed-caption-off' : '#icon-closed-caption-on'}/>
         </svg>

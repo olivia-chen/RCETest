@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Hls from 'hls.js';
 
-const API_URL = 'https://mole.prod.reuters.tv/rest/v2/website/content/reutersnow/region/US/country/USA/duration/15';
+const API_URL = 'https://mole.prod.reuters.tv/rest/v2/website/content/reutersnow/region/US/country/USA/duration/10';
 
 class Player extends Component {
 

@@ -17,7 +17,7 @@ class ScrubberBar extends Component {
   render() {
     const { duration, currentTime, onMouseDown, onScrubberBarClick, mousePosition, currentThumbnailUrl, nubGrabbing, inAd } = this.props;
     return (
-      <div className={`scrubber${inAd ? ' ad' : ''}`}>
+      <div className={`scrubber ${inAd ? 'adCursor' : ''}`}>
         <div 
           ref={(el) => {this.scrub = el}}
           className={'scrub'}
@@ -29,20 +29,17 @@ class ScrubberBar extends Component {
               style={{left: this.computePosition(duration, currentTime)}}
             />
           </div> 
-            {
-              !nubGrabbing && 
-              <div
-                className={'thumbnail'}
-                style={{
-                  left: mousePosition,
-                }}
-              >
-                <img
-                  src={currentThumbnailUrl}
-                  alt={'thumbnail'}
-                />
-              </div>
-            }
+          <div
+            className={'thumbnail'}
+            style={{
+              left: mousePosition,
+            }}
+          >
+            <img
+              src={currentThumbnailUrl}
+              alt={'thumbnail'}
+            />
+          </div>
         </div>
         <div
           className={`${inAd ? 'ad' : ''} nub ${nubGrabbing ? 'grabbing' : ''}`}

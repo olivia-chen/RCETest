@@ -35,8 +35,8 @@ class PlayButton extends Component {
           title={isPlaying ? 'play' : 'pause'}
         />
         <svg
-          width={'36px'}
-          height={'36px'}
+          width={'30px'}
+          height={'30px'}
         >
           <use xlinkHref={isPlaying ? '#icon-pause' : '#icon-play'}/>
         </svg>

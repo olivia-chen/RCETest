@@ -58,6 +58,7 @@ class Controls extends Component {
       mousePosition: e.clientX - 198,
       currentThumbnailUrl: url,
     });
+    console.log(this.state.mousePosition);
   }
 
   handleControlClick = (e) => {

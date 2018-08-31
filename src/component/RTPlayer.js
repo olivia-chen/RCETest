@@ -109,9 +109,11 @@ class RTPlayer extends Component {
     if (item && item.resources) {
       const resource = item.resources.find(el => el.orientation && el.orientation === "LANDSCAPE");
       if (resource) {
+        console.log(resource.uri);
         return resource.uri;
       }
     }
+    
     return ""; 
   }
 

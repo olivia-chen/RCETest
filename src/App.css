@@ -60,7 +60,7 @@ body, * {
   transform: translate(-50%, -70%);
   height: 144px;
   width: 144px;
-  background: rgba(133, 128, 128, 0.3);
+  background: rgba(0,0,0,0.25);  
   z-index: 999;
   border-radius: 100%;
 }
@@ -234,7 +234,7 @@ h2.title.show {
   height: 20px;
 }
 
-.scrubber.ad {
+.scrubber.adCursor {
   cursor: not-allowed;
 }
 
@@ -252,7 +252,7 @@ h2.title.show {
   right: 0;
 }
 
-.scrub .scrub-full ~ .thumbnail {
+.scrub-full ~ .thumbnail {
   position: absolute;
   padding: 10px;
   line-height: 0;
@@ -264,7 +264,7 @@ h2.title.show {
   transform: translate(-50%, -110%);
 }
 
-.scrub .scrub-full:hover ~ .thumbnail {
+.scrubber:hover .scrub-full ~ .thumbnail {
   display: block;
 }
 
@@ -347,10 +347,15 @@ h2.title.show {
   z-index: 3;
   fill: #fffbfb;
   opacity: 0.8;
+  top: 2px;
 }
 
 .btn-wrap svg #icon-volume-off {
   margin-right: 100px;
+}
+
+.btn-wrap.cc-button {
+  margin-right: 30px;
 }
 
 .timer {
