@@ -56,10 +56,10 @@ The link of the prototype is [https://rectest-8d46f.firebaseapp.com/](https://re
 * The solution of the playlist blur background comes from online.
 
 ## TODO
-1. Test on IE.
-2. Be responsive for mobile devices. 
-3. Add more key-up actions.
-4. Add loading icon/page when loading and between stories
+1. Cross screen test(eg. IE, mobile devices).
+2. Add more key-up actions.
+3. Add icon/page to wait loading among interval stories.
+4. Performance improve (eg. code refactor, algorithm improve)
 
 ## Screenshots
 Here is two screenshots show the basic look:
