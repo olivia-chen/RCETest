@@ -409,14 +409,13 @@ h2.title.show {
   will-change: transform;
   transform: translateX(393px);
   -webkit-perspective: 1000;
-  overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
 
 .sidebar canvas{
   filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'blur\'>    <feGaussianBlur stdDeviation=\'10\'/></filter>#blur");
-  -webkit-filter:blur(10px) brightness(0.7);
-  filter:blur(10px) brightness(0.7);
+  -webkit-filter:blur(12px) brightness(0.7);
+  filter:blur(12px) brightness(0.7);
   opacity:0.7;
   top:0;
 	bottom:0;
@@ -427,6 +426,13 @@ h2.title.show {
   object-fit: cover;
   background-size: cover;
   display: none;
+}
+
+.sidebar .playlist-wrapper {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
 }
 
 .playlist-open .sidebar canvas {
@@ -487,7 +493,9 @@ h2.title.show {
 }
 
 .story-wrapper .scrubber {
-  margin-left: 20px;
+  margin-left: 15px;
+  margin-top: 75px;
+  width: 142px;
 }
 
 .story-wrapper .scrub-full {
@@ -574,12 +582,14 @@ h2.title.show {
 .selected .v-wrap {
   border-top: 1px solid rgba(0, 0, 0, 0);
 }
+
 .v-wrap {
   height: 110px;
   padding: 13px 0;
   line-height: 0;
   border-top: 1px solid rgba(195, 195, 195, 0.1);
 }
+
 .txt-center {
   position: absolute;
   top: 50%;
@@ -660,6 +670,12 @@ h2.title.show {
   .sidebar .selected .txt-center {
     width: 122px;
   }
+  .story-wrapper .scrubber {
+    margin-left: 0px;
+    margin-top: 52px;
+    width: 97.6px;
+  }
+
 }
 
 

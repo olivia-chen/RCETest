@@ -87,7 +87,9 @@ class App extends Component {
   }
 
   handleMouseout() {
-    this.setState({ showTitle: false });
+    if(this.state.isPlaying === true) {
+      this.setState({ showTitle: false });
+    }
   }
 
   togglePlay() {

@@ -39,9 +39,6 @@ class RTPlayer extends Component {
   handleOnTimeUpdate(currentTime) {
     this.props.getCurrentTime(currentTime);
     this.getTitle(currentTime);
-    // if (currentTime > this.state.duration) {
-    //   this.props.getPlayStatus(false);
-    // }
   }
 
   handleEnded() {
@@ -70,7 +67,7 @@ class RTPlayer extends Component {
     this.setState({
       seekTime,
     }, () => {
-      this.player.setSeekTime(seekTime); // TODO: other way to set currentTime?
+      this.player.setSeekTime(seekTime);
     });
   }
 
@@ -106,15 +103,14 @@ class RTPlayer extends Component {
     const currentIndex = items && items.findIndex(item => (item.startTime + item.duration) > seekTime);
     const preIndex = this.props.getMaxLessIndex(items, currentIndex);
     const item = items[preIndex];
+    let url = '';
     if (item && item.resources) {
       const resource = item.resources.find(el => el.orientation && el.orientation === "LANDSCAPE");
       if (resource) {
-        console.log(resource.uri);
-        return resource.uri;
+        url = `${resource.uri}&width=200`;
       }
     }
-    
-    return ""; 
+    return url; 
   }
 
   render() {

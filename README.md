@@ -1,76 +1,68 @@
 
 # RECTest
-This project is a working prototype of Reuters TV, basically borrowed the UI design of the Reuters TV, added and modified some features. The video control has been customized. The project is written with React js.
+This project is a working prototype of Reuters TV, basically borrowed the UI design of the Reuters TV, added and modified some features. The video control and playlist have been customized. The project is written with React js.
 
-screenshot
+The link of the prototype is [https://rectest-8d46f.firebaseapp.com/](https://rectest-8d46f.firebaseapp.com/).
 
-link
+## Features Highlights (compare to the current Reuters TV)
 
-concern: close to current: 
-icon, progress bar, pause window, label category, thumbnail, tooltip
+1. Thumbnails on Customized Controls
+	 * When hover on the scrubber bar, the user could see the thumbnail of each story with time sensitive.
+	 * The image comes from the API `resource` `LANDSCAPE` and manually add `&width=200` to resize, considered the loading speed of images.
 
-## Features --- highlights
+2. Full-page Pause Control
+	* User could pause the video by clicking almost anywhere on the page.
+	* The play will show in the middle of the page when paused and the current segment title shows as well.
 
-1. Video Play Preset
-	* 
-Play the video stream both on Safari and Chrome by utilizing the API. The video will auto-play and muted following th Chrome policy. 
+3. Progress Bar in Playlist
+	* There is a progress bar under the image (synced with the video) in playlist shows the progress of the current story between the previous one and the next one. 
+	* The progress bar is also responsive to the page size.
 
-2. Video Progress Control
-	* Click on the scrubber bar or dragging the nub on the scrubber bar.
-	* Click the story in playlist.
+4. Category Label
+	* The display of the category of the story moves to the top of the title text to let the user know more clearly.
 
-3. Play/Pause Control
-	* Click the play button on bottom left next to the scrubber bar.
-	* Click anywhere on the video window.
-	* Press space key on keyboard.
+5. Accessibility Implementation
+	* Tooltip text are shown on buttons when hover.
+	* Keyboard(Space) has control on play/pause the video.
 
-4. Current Playing Segment Information Display
-	* Move mouse to the bottom zone, the title of current playing segment shows on the up left corner.
-	* In playlist, the current playing segment is highlighted and has a progress bar downward.
+6. Ad Playing Handle 
+	* When Ad starts playing, the actions on the scrubber bar are disabled and the playlist is hidden, but the user still could control the sound and the play/pause.
 
-5. Browse All the Stories
-	* Move to the right side bar to the playlist.
-	* Hover on the scrubber bar, the thumbnail of the story shows upward depends on the playing time.
-
-6. Video Playing Progress Display
-	* Move to show the scrubber bar, the yellow part growing by the playing time.
-	* In playlist, the progress bar under the current playing story shows the playing progress and left time to the next story.
-	* The timer on the bottom shows the played time and the total duration of the video.
-
-7. Accessibility Application
-	* Subtitles display control
-	* Tooltip text on buttons
-	* Notice of un-mute method after loading the video
-	* Keyboard(Space) Control
-
-9. Ad Playing Handle 
-When Ad starts playing, the actions on the scrubber bar are disabled and the playlist is hidden.
-
-10. UI Advance
-
+7. UI Advance
+	* The playlist has the a blurred background as part of the video.
 
 ## How to Use
 
 * The project is hosted on the address: [https://rectest-8d46f.firebaseapp.com/](https://rectest-8d46f.firebaseapp.com/).
 
-* setup: Or could be run in local with commands in the file directory:
-`npm install`
-`npm start`
+* Or could be run in local by `npm` pre-installed: 
+	* git clone this repository
+	* In the file directory use commands `npm install` then
+	`npm start`
 
-* git clone
+## Technic Stack
+
+* React.js
+* Css
+* HLS Library
+* Algorithm
+	* Use the currentTime and the duration to compute the current position on the scrubber
+	* Use the previous index and the next index of the segment with `resource=STORY` to compute the progress of each story among the whole video in playlist.
+	* Use `canvas` in Css to draw a video then blur and translate to show the blur video background in playlist.
+	* The implementation assumes the `items` data response from API has been ordered by `startTime`.
 
 ## Credits
-code reference
+* This project borrowed most of Reuters TV design, implemented by using lots of original css code.
+* The solution of the playlist blur background comes from online.
 
-## TODO:
+## TODO
 1. Test on IE.
 2. Be responsive for mobile devices. 
 3. Add more key-up actions.
 4. Add loading icon/page when loading and between stories
 
-## Technology
-react 
-css
-canvas
+## Screenshots
+Here is two screenshots show the basic look:
+![Playlist](/public/images/img1.png)
+![Playlist](/public/images/img2.png)
 
-## 

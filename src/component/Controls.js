@@ -58,7 +58,6 @@ class Controls extends Component {
       mousePosition: e.clientX - 198,
       currentThumbnailUrl: url,
     });
-    console.log(this.state.mousePosition);
   }
 
   handleControlClick = (e) => {
@@ -99,6 +98,7 @@ class Controls extends Component {
         <div 
           className={'control-wrapper'}
           onClick={this.handleControlClick}
+          onMouseEnter={mouseenter}
         >
           <PlayButton 
             getPlayStatus={getPlayStatus}

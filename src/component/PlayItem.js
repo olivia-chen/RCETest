@@ -95,6 +95,19 @@ class PlayItem extends Component {
           </div>
           <div className={'v-wrap'}>
             <img src={this.getImageUri()} alt={this.getTitle()}/>
+            <div className={`scrubber ${currentPlaying ? '' : 'hide'}`}>
+              <div
+                ref={(el) => { this.scrub = el }}
+                className={'scrub'}
+              >
+                <div className={'scrub-full'}>
+                  <div
+                    className={'scrub-complete'}
+                    style={{ left: this.computePosition(preIndex, nextIndex, items, currentTime) }}
+                  />
+                </div>
+              </div>
+            </div>
             <div className={'txt-center'}>
               <p className={'meta duration'}>
                 {this.getCategory()}
@@ -108,22 +121,9 @@ class PlayItem extends Component {
                 </strong>
               </span>
             </div>
-            
           </div>
         </div> 
-        <div className={`scrubber ${currentPlaying ? '' : 'hide'}`}>
-          <div 
-            ref={(el) => {this.scrub = el}}
-            className={'scrub'}
-          >
-            <div className={'scrub-full'}>
-              <div
-                className={'scrub-complete'}
-                style={{left: this.computePosition(preIndex, nextIndex, items, currentTime)}}
-              />
-            </div> 
-          </div>
-        </div>
+        
       </div>
     )
   }

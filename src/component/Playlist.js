@@ -75,7 +75,6 @@ class Playlist extends Component {
   }
 
   getPlayItemsIndex = (items, currentIndex) => {
-    // console.log(currentIndex);
     let indexMap = [];
     indexMap[0] = 0;
     let count = 0;
@@ -121,26 +120,30 @@ class Playlist extends Component {
             id='mycanvas'
             ref={(el) => {this.canvas = el;}}
           />
-          <p className={'playlist-title'}>PLAYLIST</p>
-            {items && items.map((item, index) => {
-              if (item.title && item.type !== "TEASER" && item.type !== "MAINTITLE") {
-                return (
-                  <PlayItem 
-                    ref={(el) => { this.playItem = el }}
-                    key={index}
-                    index={index}
-                    preIndex={getMaxLessIndex(items, currentPlayingIndex)}
-                    nextIndex={getMinGreaterIndex(items, currentPlayingIndex)}
-                    currentPlaying={currentPlayingIndex === index || getMaxLessIndex(items, currentPlayingIndex) === index}
-                    item={item}
-                    getSeekTimeIndex={this.handleStartTimeIndex}
-                    items={items}
-                    currentTime={currentTime}
-                  />
-                )
-              }
-              return null;
-            })}
+          <div
+            className={'playlist-wrapper'}
+          >
+            <p className={'playlist-title'}>PLAYLIST</p>
+              {items && items.map((item, index) => {
+                if (item.title && item.type !== "TEASER" && item.type !== "MAINTITLE") {
+                  return (
+                    <PlayItem 
+                      ref={(el) => { this.playItem = el }}
+                      key={index}
+                      index={index}
+                      preIndex={getMaxLessIndex(items, currentPlayingIndex)}
+                      nextIndex={getMinGreaterIndex(items, currentPlayingIndex)}
+                      currentPlaying={currentPlayingIndex === index || getMaxLessIndex(items, currentPlayingIndex) === index}
+                      item={item}
+                      getSeekTimeIndex={this.handleStartTimeIndex}
+                      items={items}
+                      currentTime={currentTime}
+                    />
+                  )
+                }
+                return null;
+              })}
+            </div>
         </div>
       </div> 
     )

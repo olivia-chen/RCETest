@@ -35,7 +35,6 @@ class SoundButton extends Component {
           title={muted ? 'muted' : 'unmute'}
         />
         <svg
-          
           width={'30px'}
           height={'30px'}
         >
