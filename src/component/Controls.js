@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ScrubberBar from './ScrubberBar';
 import PlayButton from './PlayButton';
 import SoundButton from './SoundButton';
+import CCButton from './CCButton';
 
 class Controls extends Component {
   constructor(props) {
@@ -44,8 +45,6 @@ class Controls extends Component {
       seekTime = Math.max(0, seekTime);
       this.setState({ currentTime: seekTime });
       onMouseup(seekTime);
-    }else{
-      document.body.style.cursor = 'default';
     }
   }
 
@@ -61,6 +60,10 @@ class Controls extends Component {
     });
   }
 
+  handleControlClick = (e) => {
+    e.stopPropagation();
+  }
+
   render() {
     const { 
       duration, 
@@ -68,7 +71,8 @@ class Controls extends Component {
       getPlayStatus, 
       mouseenter, 
       mouseout, 
-      getMuteStatus, 
+      getMuteStatus,
+      getCCStatus,
       isPlaying, 
       inAd, 
       onNubMouseDown, 
@@ -91,7 +95,10 @@ class Controls extends Component {
         onMouseUp={onNubMouseUp}
         onMouseLeave={onNubMouseUp}
       >
-        <div className={'control-wrapper'}>
+        <div 
+          className={'control-wrapper'}
+          onClick={this.handleControlClick}
+        >
           <PlayButton 
             getPlayStatus={getPlayStatus}
             isPlaying={isPlaying}
@@ -117,6 +124,9 @@ class Controls extends Component {
           <div className={'runtime'}>
             <span>{this.getDisplayTime(duration)}</span>
           </div>
+          <CCButton 
+            getCCStatus={getCCStatus}
+          />
         </div>
       </div>
     )

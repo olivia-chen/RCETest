@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Hls from 'hls.js';
 
-const API_URL = 'https://mole.prod.reuters.tv/rest/v2/website/content/reutersnow/region/US/country/USA/duration/10';
+const API_URL = 'https://mole.prod.reuters.tv/rest/v2/website/content/reutersnow/region/US/country/USA/duration/15';
 
 class Player extends Component {
 
@@ -79,18 +79,19 @@ class Player extends Component {
     this.hlsVideo.currentTime=time;
   }
 
-
   render() {
-    const { poster, videoProps, muted, onSeeking } = this.props;
+    const { poster, videoProps, muted, onSeeking, onEnded } = this.props;
     return (
       <div className={'video-fitter'}>
-        <video 
+        <video
+          id={'reuters-video'}
           className={'video'}
           ref={(el) => { this.hlsVideo = el }}
           poster={poster}
           muted={muted}
           onTimeUpdate={this.handleOnTimeUpdate}
           onSeeking={onSeeking}
+          onEnded={onEnded}
           {...videoProps} 
         />
       </div>

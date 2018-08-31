@@ -8,6 +8,31 @@ class Playlist extends Component {
       playlistOpen: false,
     }
   }
+
+  componentDidMount() {
+    if (this.canvas) {
+      this.updateCanvas();
+    }
+  }
+
+  updateCanvas = () => {
+    const { canvas } = this;
+    const ctx = canvas.getContext('2d');
+    const v = document.getElementById('reuters-video');
+    const cw = (v && v.clientWidth) || window.innerWidth;
+    const ch = (v && v.clientHeight) || window.innerHeight;
+    canvas.width = cw;
+    canvas.height = ch;
+    canvas.style.left = `-${cw - 412}px`;
+    v.addEventListener('play', () => this.draw(v, ctx, cw, ch));
+  }
+
+  draw = (v, c, w, h) => {
+    if (v.paused || v.ended) return false;
+    c.drawImage(v, 0, 0, w, h);
+    setTimeout(this.draw, 20, v, c, w, h);
+  }
+
   handleStartTimeIndex = (index) => {
     const { items } = this.props;
     const startTime = items[index].startTime;
@@ -92,6 +117,10 @@ class Playlist extends Component {
           }}
         />
         <div className={'sidebar'}>
+          <canvas
+            id='mycanvas'
+            ref={(el) => {this.canvas = el;}}
+          />
           <p className={'playlist-title'}>PLAYLIST</p>
             {items && items.map((item, index) => {
               if (item.title && item.type !== "TEASER" && item.type !== "MAINTITLE") {

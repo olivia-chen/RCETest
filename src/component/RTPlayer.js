@@ -13,10 +13,13 @@ class RTPlayer extends Component {
       seekTime: undefined,
       muted: true,
       nubGrabbing: false,
+      isHideCCing: true,
     }
     this.handleOnTimeUpdate = this.handleOnTimeUpdate.bind(this);
     this.handleJsonContent = this.handleJsonContent.bind(this);
     this.handleMouseup = this.handleMouseup.bind(this);
+    this.handleEnded = this.handleEnded.bind(this);
+    this.handleToggleCC = this.handleToggleCC.bind(this);
     this.handleNubMouseUp = this.handleNubMouseUp.bind(this);
     this.handleOnSeeking = this.handleOnSeeking.bind(this);
     this.handleToggleSound = this.handleToggleSound.bind(this);
@@ -36,9 +39,13 @@ class RTPlayer extends Component {
   handleOnTimeUpdate(currentTime) {
     this.props.getCurrentTime(currentTime);
     this.getTitle(currentTime);
-    if (currentTime > this.state.duration) {
-      this.props.getPlayStatus(false);
-    }
+    // if (currentTime > this.state.duration) {
+    //   this.props.getPlayStatus(false);
+    // }
+  }
+
+  handleEnded() {
+    this.props.getPlayStatus(false);
   }
 
   getTitle(currentTime) {
@@ -74,6 +81,10 @@ class RTPlayer extends Component {
   handleToggleSound(muted) {
     this.setState({ muted }); 
     this.props.getMuteStatus(muted);
+  }
+  
+  handleToggleCC(isHideCCing) {
+    this.setState({ isHideCCing }); 
   }
 
   handleNubMouseDown() {
@@ -112,6 +123,7 @@ class RTPlayer extends Component {
       nubGrabbing,
       title,
       items,
+      isHideCCing,
     } = this.state;
     const { inAd, isPlaying, getPlayStatus, currentTime, showTitle, mouseout, mouseenter } = this.props;
     return (
@@ -120,7 +132,7 @@ class RTPlayer extends Component {
           <Title showTitle={showTitle} title={title} />
         </div>
         {/* for full screen show */}
-        <div className={`player`}> 
+        <div className={`player${isHideCCing ? ' cc-off' : ' cc-on'}`}> 
           <Player
             ref={(el) => {this.player = el;}}
             // videoProps={{}}
@@ -130,6 +142,7 @@ class RTPlayer extends Component {
             isPlaying={isPlaying}
             getJsonContent={this.handleJsonContent}
             muted={muted}
+            onEnded={this.handleEnded}
           />
         </div>
         <Controls
@@ -140,6 +153,7 @@ class RTPlayer extends Component {
           onMouseup={this.handleMouseup}
           getPlayStatus={getPlayStatus}
           getMuteStatus={this.handleToggleSound}
+          getCCStatus={this.handleToggleCC}
           isPlaying={isPlaying}
           inAd={inAd}
           onNubMouseDown={this.handleNubMouseDown}

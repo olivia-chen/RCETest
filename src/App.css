@@ -127,16 +127,18 @@ body, * {
   display: block;
   user-select: none;
 }
-
-video.hide-cc::cue{
-  visibility: hidden;
-}
-video::cue{
+.player.cc-on video::cue{
   font-size: 30px;
   white-space: nowrap;
   color: white;
   background: rgba(0, 0, 0, 0.4);
+  opacity: 1;
 }
+
+.player.cc-off video::cue{
+  opacity: 0;
+}
+
 
 .logo-img {
   position: fixed;
@@ -230,6 +232,10 @@ h2.title.show {
   cursor: pointer;
   margin-right: 25px;
   height: 20px;
+}
+
+.scrubber.ad {
+  cursor: not-allowed;
 }
 
 .scrubber.hide {
@@ -400,6 +406,26 @@ h2.title.show {
   -webkit-perspective: 1000;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+}
+
+.sidebar canvas{
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'blur\'>    <feGaussianBlur stdDeviation=\'10\'/></filter>#blur");
+  -webkit-filter:blur(10px) brightness(0.7);
+  filter:blur(10px) brightness(0.7);
+  opacity:0.7;
+  top:0;
+	bottom:0;
+	left:0;
+	right:0;
+	position: absolute;
+  z-index: -10;
+  object-fit: cover;
+  background-size: cover;
+  display: none;
+}
+
+.playlist-open .sidebar canvas {
+  display: block;
 }
 
 .playlist-title {

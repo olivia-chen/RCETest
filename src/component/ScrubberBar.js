@@ -17,7 +17,7 @@ class ScrubberBar extends Component {
   render() {
     const { duration, currentTime, onMouseDown, onScrubberBarClick, mousePosition, currentThumbnailUrl, nubGrabbing, inAd } = this.props;
     return (
-      <div className={'scrubber'}>
+      <div className={`scrubber${inAd ? ' ad' : ''}`}>
         <div 
           ref={(el) => {this.scrub = el}}
           className={'scrub'}
