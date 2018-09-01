@@ -122,7 +122,6 @@ class PlayItem extends Component {
             </div>
           </div>
         </div> 
-        
       </div>
     )
   }

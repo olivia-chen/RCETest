@@ -176,7 +176,6 @@ class App extends Component {
       currentTime,
       showTitle,
       manualUnmuted,
-      playlistOpen,
     } = this.state;
     return (
       <div 

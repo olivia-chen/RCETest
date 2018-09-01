@@ -57,7 +57,6 @@ class RTPlayer extends Component {
   }
 
   handleJsonContent(content) {
-    console.log(content);
     this.props.getJsonContent(content);
     this.setState({ duration: content.duration });
     this.setState({ items: content.items });

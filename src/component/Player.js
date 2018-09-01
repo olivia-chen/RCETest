@@ -20,7 +20,6 @@ class Player extends Component {
   request = async () => {
     const response = await fetch(API_URL);
     const json = await response.json();
-    console.log(json);
     this.getJsonContent(json.entity);
     this.initPlayer(json.entity.stream.uri);
   }
@@ -56,19 +55,6 @@ class Player extends Component {
 
   play = () => {
       this.hlsVideo.play();
-      // const playPromise = this.hlsVideo.play();
-      // if (playPromise !== undefined) {
-      //   playPromise.then( () => {
-      //     // Automatic playback started!
-      //     // Show playing UI.
-      //     // We can now safely pause video...
-      //     this.hlsVideo.pause();
-      //   })
-      //   .catch( (error) => {
-      //     // Auto-play was prevented
-      //     // Show paused UI.
-      //   });
-      // }
   }
 
   pause = () => {
