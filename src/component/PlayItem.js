@@ -38,7 +38,6 @@ class PlayItem extends Component {
   }
 
   computeStartItem = (e) => {
-    e.stopPropagation();
     const { index, getSeekTimeIndex } = this.props;
     getSeekTimeIndex(index);
   }

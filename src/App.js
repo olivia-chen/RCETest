@@ -19,13 +19,14 @@ class App extends Component {
     }
     this.showCursorTimeOut = null;
     this.hideCursor = this.hideCursor.bind(this);
+    this.handleOnSeek = this.handleOnSeek.bind(this);
     this.togglePlay = this.togglePlay.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
     this.handleManualUnmute = this.handleManualUnmute.bind(this);
     this.handleSeekTime = this.handleSeekTime.bind(this);
     this.getCurrentTime = this.getCurrentTime.bind(this);
     this.handleMouseout = this.handleMouseout.bind(this);
-    this.handleMouseenter = this.handleMouseenter.bind(this);
+    this.handleMouseEnterPlayer = this.handleMouseEnterPlayer.bind(this);
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handleMouseClick = this.handleMouseClick.bind(this);
     this.handleJsonContent = this.handleJsonContent.bind(this);
@@ -82,7 +83,7 @@ class App extends Component {
     })
   }
 
-  handleMouseenter() {
+  handleMouseEnterPlayer() {
     this.setState({ showTitle: true });
   }
 
@@ -140,6 +141,10 @@ class App extends Component {
     return res;
   }
 
+  handleOnSeek() {
+    this.setState({ seekTime: undefined });
+  }
+
   // find the min index number greater than current index
   getMinGreaterIndex = (items, curr) => {
     const filteredIndex = this.getFilteredIndex(items);
@@ -171,6 +176,7 @@ class App extends Component {
       currentTime,
       showTitle,
       manualUnmuted,
+      playlistOpen,
     } = this.state;
     return (
       <div 
@@ -202,6 +208,7 @@ class App extends Component {
           getJsonContent={this.handleJsonContent}
           getCurrentIndex={this.handleCurrentIndex}
           seekTime={seekTime}
+          onSeek={this.handleOnSeek}
           inAd={inAd}
           getMaxLessIndex={this.getMaxLessIndex}
           isPlaying={isPlaying}
@@ -209,7 +216,7 @@ class App extends Component {
           getCurrentTime={this.getCurrentTime}
           currentTime={currentTime}
           showTitle={showTitle}
-          mouseenter={this.handleMouseenter}
+          mouseenter={this.handleMouseEnterPlayer}
           mouseout={this.handleMouseout}
           getMuteStatus={this.handleManualUnmute}
         />
@@ -222,6 +229,8 @@ class App extends Component {
           getMaxLessIndex={this.getMaxLessIndex}
           getMinGreaterIndex={this.getMinGreaterIndex}
           currentTime={currentTime}
+          mouseLeave={this.handleMouseLeavePlaylist}
+          mouseEnter={this.handleMouseEnterPlaylist}
         />
       </div>
     )

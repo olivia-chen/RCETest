@@ -100,7 +100,7 @@ class Playlist extends Component {
     const {
       playlistOpen,
     } = this.state;
-    
+
     return (
       <div 
         ref={(el) => { this.hitzone = el }}
@@ -115,7 +115,11 @@ class Playlist extends Component {
             top: this.computeTop(items, currentPlayingIndex),
           }}
         />
-        <div className={'sidebar'}>
+        <div 
+          className={'sidebar'}
+          onClick={e => e.stopPropagation()}
+          onMouseEnter={e => e.stopPropagation}
+        >
           <canvas
             id='mycanvas'
             ref={(el) => {this.canvas = el;}}
