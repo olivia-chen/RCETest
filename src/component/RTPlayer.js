@@ -29,8 +29,9 @@ class RTPlayer extends Component {
   }
 
   UNSAFE_componentWillReceiveProps (nextProps) {
+    
     const { seekTime } = this.props;
-    if (nextProps.seekTime && (nextProps.seekTime !== seekTime)){
+    if (nextProps.seekTime !== undefined && (nextProps.seekTime !== seekTime)){
       this.handleMouseup(nextProps.seekTime);
       this.props.getPlayStatus(true);
     }
