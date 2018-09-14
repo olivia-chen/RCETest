@@ -99,7 +99,7 @@ class RTPlayer extends Component {
       duration,
     } = this.state
     let seekTime = duration * (currentPosition / width);
-    seekTime = Math.min(duration, seekTime);
+    seekTime = Math.min(duration-0.01, seekTime);
     seekTime = Math.max(0, seekTime);
     const currentIndex = items && items.findIndex(item => (item.startTime + item.duration) > seekTime);
     const preIndex = this.props.getMaxLessIndex(items, currentIndex);
@@ -107,7 +107,8 @@ class RTPlayer extends Component {
     let url = '';
     if (item && item.resources) {
       const resource = item.resources.find(el => el.orientation && el.orientation === "LANDSCAPE");
-      if (resource) {
+      if (resource && resource.uri) {
+        console.log(resource.uri);
         url = `${resource.uri}&width=200`;
       }
     }

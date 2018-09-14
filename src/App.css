@@ -649,6 +649,10 @@ h2.title.show {
     width: 132px;
     left: 170px;
   }
+
+  .sidebar {
+    position: absolute;
+  }
   .sidebar .story,
   .sidebar .overflower {
     height: 85px;
@@ -675,11 +679,144 @@ h2.title.show {
     margin-top: 52px;
     width: 97.6px;
   }
-
 }
 
+@media only screen and (max-device-width: 767px) and (orientation: portrait) {
 
+  
+}
 
+@media only screen and (max-device-width: 340px) and (orientation: portrait) {
+  
+}
+.intro-slide {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 19px;
+  display: none;
+}
+.intro-slide .image {
+  background: #ff9001;
+  display: inline-block;
+  -webkit-transform: translateX(142px);
+      -ms-transform: translateX(142px);
+          transform: translateX(142px);
+  transition: -webkit-transform 1s cubic-bezier(0.2, 0.4, 0.1, 1);
+  transition: transform 1s cubic-bezier(0.2, 0.4, 0.1, 1);
+  transition: transform 1s cubic-bezier(0.2, 0.4, 0.1, 1), -webkit-transform 1s cubic-bezier(0.2, 0.4, 0.1, 1);
+  transition-delay: 600ms;
+}
+.intro-slide img {
+  width: 142px;
+  height: 80px;
+  display: block;
+  -webkit-transform: translateX(142px);
+      -ms-transform: translateX(142px);
+          transform: translateX(142px);
+  transition: -webkit-transform 600ms cubic-bezier(0.2, 0.4, 0.1, 1);
+  transition: transform 600ms cubic-bezier(0.2, 0.4, 0.1, 1);
+  transition: transform 600ms cubic-bezier(0.2, 0.4, 0.1, 1), -webkit-transform 600ms cubic-bezier(0.2, 0.4, 0.1, 1);
+}
+.hitzone {
+  width: 19px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 8;
+  transition: opacity 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.no-touchevents .hitzone:hover {
+  width: 320px;
+}
+.controls-open .hitzone {
+  z-index: 6;
+}
+.no-touchevents .hitzone:hover {
+  z-index: 61;
+}
+.playlist-title {
+  color: white;
+  font-size: 20px;
+  font-family: 'Knowledge';
+  padding: 15px 20px;
+  margin: 0;
+}
+.playlist-open .sidebar {
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0);
+  background: rgba(0, 0, 0, 0.7);
+}
+.playlist-open .side-progress {
+  opacity: 0;
+  -webkit-transform: translateX(-383px);
+      -ms-transform: translateX(-383px);
+          transform: translateX(-383px);
+}
+.playlist-open .hitzone {
+  z-index: 61;
+}
+.no-touchevents .hitzone:hover .sidebar {
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0);
+  background: rgba(0, 0, 0, 0.7);
+}
+.no-touchevents .hitzone:hover .side-progress {
+  opacity: 0;
+  -webkit-transform: translateX(-323px);
+      -ms-transform: translateX(-323px);
+          transform: translateX(-323px);
+}
+.side-progress {
+  position: absolute;
+  right: 0;
+  top: 0;
+  opacity: 1;
+  transition: all 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  z-index: 2;
+  background: #ff9001;
+  width: 19px;
+}
+.touchevents .playlist-open .hitzone {
+  z-index: 501;
+}
+.touchevents .playlist-open .hitzone .sidebar {
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0);
+  z-index: 502;
+}
+.wiping {
+  z-index: 70;
+}
+.wiping .hitzone {
+  z-index: 70;
+}
+.sidebar {
+  width: 412px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.4);
+  transition: -webkit-transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1), -webkit-transform 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  will-change: transform;
+  -webkit-transform: translateX(393px);
+      -ms-transform: translateX(393px);
+          transform: translateX(393px);
+  -webkit-perspective: 1000;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.touchevents .sidebar {
+  position: fixed;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

@@ -14,6 +14,7 @@ class Controls extends Component {
     };
   }
 
+  // To make the nub move smoothly: add local current time and wait for the player finishing seeking.
   UNSAFE_componentWillReceiveProps (nextProps) {
     const { currentTime } = this.props;
     if(currentTime !== nextProps.currentTime){

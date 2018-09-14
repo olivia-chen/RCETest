@@ -6,7 +6,7 @@ class PlayItem extends Component {
     const { item } = this.props;
     if (item && item.resources) {
       const resource = item.resources.find(el => el.orientation && el.orientation === "LANDSCAPE");
-      if (resource) {
+      if (resource && resource.uri) {
         return resource.uri;
       }
     }
