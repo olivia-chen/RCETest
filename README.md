@@ -1,5 +1,5 @@
 
-# RECTest Solution
+# Video-Player
 This project is a working prototype of Reuters TV, basically borrowed the UI design of the Reuters TV, added and modified some features. The video control and playlist have been customized. The project is written with React js.
 
 The link of this prototype is [https://rectest-8d46f.firebaseapp.com/](https://rectest-8d46f.firebaseapp.com/).
